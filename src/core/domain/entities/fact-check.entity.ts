@@ -3,7 +3,7 @@ import { SearchResultEntity } from "./search-result.entity";
 export enum FactCheckStatus {
   TRUE = 'true',
   FALSE = 'false',
-  PARTIUALLY_TRUE = 'partially_true',
+  PARTIALLY_TRUE = 'partially_true',
   INSUFFICIENT_DATA = 'insufficient_data',
 }
 
