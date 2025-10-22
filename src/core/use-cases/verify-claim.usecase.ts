@@ -12,7 +12,7 @@ export class VerifyClaimUseCase {
     private readonly searchRepository: SearchRepository,
     private readonly aiRepository: AiRepository,
     private readonly factCheckService: FactCheckService,
-  ) { }
+  ) {}
 
   async execute(claim: string): Promise<FactCheckEntity> {
     // 1. Buscar informações sobre a afirmação
@@ -20,7 +20,8 @@ export class VerifyClaimUseCase {
     const searchResults = await this.searchRepository.search(query);
 
     // 2. Analisar qualidade das fontes
-    const sourceQuality = this.factCheckService.analyzeSourceQuality(searchResults);
+    const sourceQuality =
+      this.factCheckService.analyzeSourceQuality(searchResults);
 
     // 3. Preparar contexto
     const context = searchResults
@@ -52,18 +53,24 @@ ${sourceQuality.details.join('\n')}`,
     // 5. Extrair informações estruturadas da análise
     const status = this.factCheckService.extractFactCheckStatus(analysis);
     const confidence = this.factCheckService.extractConfidenceLevel(analysis);
-    const redFlags = this.factCheckService.identifyRedFlags(claim + ' ' + analysis, searchResults);
-    const supportingPoints = this.factCheckService.identifySupportingPoints(analysis, searchResults);
+    const redFlags = this.factCheckService.identifyRedFlags(
+      claim + ' ' + analysis,
+      searchResults,
+    );
+    const supportingPoints = this.factCheckService.identifySupportingPoints(
+      analysis,
+      searchResults,
+    );
 
     // 6. Enriquecer análise com red flags e pontos de suporte
     let enrichedAnalysis = analysis;
 
     if (redFlags.length > 0) {
-      enrichedAnalysis += `\n\n⚠️ **Alertas:**\n${redFlags.map(f => `• ${f}`).join('\n')}`;
+      enrichedAnalysis += `\n\n⚠️ **Alertas:**\n${redFlags.map((f) => `• ${f}`).join('\n')}`;
     }
 
     if (supportingPoints.length > 0) {
-      enrichedAnalysis += `\n\n✅ **Pontos Positivos:**\n${supportingPoints.map(p => `• ${p}`).join('\n')}`;
+      enrichedAnalysis += `\n\n✅ **Pontos Positivos:**\n${supportingPoints.map((p) => `• ${p}`).join('\n')}`;
     }
 
     // 7. Retornar resultado estruturado

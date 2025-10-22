@@ -16,4 +16,4 @@ import { envValidation } from './infrastructure/config/env.validation';
     AiModule,
   ],
 })
-export class AppModule { }
+export class AppModule {}

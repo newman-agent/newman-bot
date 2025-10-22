@@ -11,7 +11,7 @@ export class VerifyCommand implements ICommand {
   constructor(
     private readonly verifyUseCase: VerifyClaimUseCase,
     private readonly embedBuilder: EmbedBuilderService,
-  ) { }
+  ) {}
 
   async execute(message: Message, args: string[]): Promise<void> {
     if (args.length === 0) {

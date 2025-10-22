@@ -75,10 +75,7 @@ export class DiscordService implements OnModuleInit {
       return;
     }
 
-    const args = message.content
-      .slice(this.prefix.length)
-      .trim()
-      .split(/ +/);
+    const args = message.content.slice(this.prefix.length).trim().split(/ +/);
     const commandName = args.shift()?.toLowerCase();
 
     if (!commandName) return;

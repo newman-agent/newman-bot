@@ -28,15 +28,12 @@ export class BraveAdapter {
       );
 
       return (
-        response.data.web?.results?.slice(0, 5).map(
-          (r: any) =>
-            new SearchResultEntity(
-              r.title,
-              r.description,
-              r.url,
-              'brave',
-            ),
-        ) || []
+        response.data.web?.results
+          ?.slice(0, 5)
+          .map(
+            (r: any) =>
+              new SearchResultEntity(r.title, r.description, r.url, 'brave'),
+          ) || []
       );
     } catch (error) {
       this.logger.error(`Brave search error: ${error.message}`);

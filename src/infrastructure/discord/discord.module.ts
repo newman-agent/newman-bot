@@ -25,4 +25,4 @@ import { EmbedBuilderService } from '../../application/services/embed-builder.se
     EmbedBuilderService,
   ],
 })
-export class DiscordModule { }
+export class DiscordModule {}

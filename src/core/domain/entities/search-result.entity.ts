@@ -4,8 +4,7 @@ export class SearchResultEntity {
     public readonly snippet: string,
     public readonly url: string,
     public readonly source: 'brave' | 'duckduckgo',
-
-  ) { }
+  ) {}
 
   toSJON() {
     return {

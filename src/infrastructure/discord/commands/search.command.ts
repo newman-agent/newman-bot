@@ -19,7 +19,7 @@ export class SearchCommand implements ICommand {
   constructor(
     private readonly searchUseCase: SearchWithFactCheckUseCase,
     private readonly embedBuilder: EmbedBuilderService,
-  ) { }
+  ) {}
 
   async execute(message: Message, args: string[]): Promise<void> {
     if (args.length === 0) {
@@ -36,7 +36,9 @@ export class SearchCommand implements ICommand {
       await message.reply({ embeds: [embed] });
     } catch (error) {
       this.logger.error('Search command error:', error);
-      await message.reply(' Não consegui encontrar resultados para essa busca.');
+      await message.reply(
+        ' Não consegui encontrar resultados para essa busca.',
+      );
     }
   }
 }

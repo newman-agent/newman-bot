@@ -14,7 +14,7 @@ export class SearchService implements SearchRepository {
     private readonly configService: ConfigService,
     private readonly braveAdapter: BraveAdapter,
     private readonly duckDuckGoAdapter: DuckDuckGoAdapter,
-  ) { }
+  ) {}
 
   async search(query: SearchQuery): Promise<SearchResultEntity[]> {
     const braveApiKey = this.configService.get<string>('BRAVE_API_KEY');

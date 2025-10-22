@@ -16,7 +16,9 @@ export interface CommandMetadata {
 export const DiscordCommand = (metadata: CommandMetadata) =>
   SetMetadata(COMMAND_METADATA, metadata);
 
-export const getCommandMetadata = (target: any): CommandMetadata | undefined => {
+export const getCommandMetadata = (
+  target: any,
+): CommandMetadata | undefined => {
   return Reflect.getMetadata(COMMAND_METADATA, target);
 };
 

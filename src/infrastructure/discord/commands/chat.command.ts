@@ -16,7 +16,7 @@ import { DiscordUtils } from '../../../shared/utils/discord.util';
 export class ChatCommand implements ICommand {
   private readonly logger = new Logger(ChatCommand.name);
 
-  constructor(private readonly chatUseCase: ChatWithAiUseCase) { }
+  constructor(private readonly chatUseCase: ChatWithAiUseCase) {}
 
   async execute(message: Message, args: string[]): Promise<void> {
     if (args.length === 0) {
@@ -32,7 +32,6 @@ export class ChatCommand implements ICommand {
       const response = await this.chatUseCase.execute(userMessage);
 
       await DiscordUtils.replyLong(message, response);
-
     } catch (error) {
       this.logger.error('Chat command error:', error);
       await message.reply(' Erro ao processar sua mensagem.');

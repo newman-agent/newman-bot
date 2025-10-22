@@ -14,4 +14,4 @@ import { envValidation } from './env.validation';
   ],
   exports: [NestConfigModule],
 })
-export class ConfigModule { }
+export class ConfigModule {}

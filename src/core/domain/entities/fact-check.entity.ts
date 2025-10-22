@@ -1,4 +1,4 @@
-import { SearchResultEntity } from "./search-result.entity";
+import { SearchResultEntity } from './search-result.entity';
 
 export enum FactCheckStatus {
   TRUE = 'true',
@@ -14,5 +14,5 @@ export class FactCheckEntity {
     public readonly explanation: string,
     public readonly sources: SearchResultEntity[],
     public readonly confidence: number,
-  ) { }
+  ) {}
 }

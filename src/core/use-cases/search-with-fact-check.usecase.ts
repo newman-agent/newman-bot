@@ -15,10 +15,10 @@ export class SearchWithFactCheckUseCase {
   constructor(
     private readonly searchRepository: SearchRepository,
     private readonly aiRepository: AiRepository,
-  ) { }
+  ) {}
 
   async execute(queryString: string): Promise<SearchWithFactCheckResult> {
-    // 1. Validate 
+    // 1. Validate
     const query = SearchQuery.create(queryString);
 
     // 2. Search Information
@@ -47,13 +47,9 @@ export class SearchWithFactCheckUseCase {
     };
   }
 
-
   private formatSearchResultsForAi(results: SearchResultEntity[]): string {
     return results
-      .map(
-        (r, i) =>
-          `[${i + 1}] $s{r.title}\n${r.snippet}\nFonte: ${r.url}\n`,
-      )
+      .map((r, i) => `[${i + 1}] $s{r.title}\n${r.snippet}\nFonte: ${r.url}\n`)
       .join('\n');
   }
 }

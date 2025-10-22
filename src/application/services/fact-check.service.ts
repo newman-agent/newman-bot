@@ -57,7 +57,7 @@ export class FactCheckService {
         } catch {
           return s.url;
         }
-      })
+      }),
     ).size;
 
     if (uniqueDomains === sources.length) {
@@ -65,7 +65,9 @@ export class FactCheckService {
       details.push('✅ Fontes de domínios diversos');
     } else if (uniqueDomains > 1) {
       score += 10;
-      details.push(`⚠️ Alguma diversidade (${uniqueDomains} domínios diferentes)`);
+      details.push(
+        `⚠️ Alguma diversidade (${uniqueDomains} domínios diferentes)`,
+      );
     }
 
     // Normaliza score para máximo de 100
@@ -257,11 +259,11 @@ export class FactCheckService {
 
     // Verifica URLs suspeitas nas fontes
     const suspiciousDomains = sources.filter((s) =>
-      this.isSuspiciousDomain(s.url)
+      this.isSuspiciousDomain(s.url),
     );
     if (suspiciousDomains.length > 0) {
       redFlags.push(
-        `🚩 ${suspiciousDomains.length} fonte(s) de domínios questionáveis`
+        `🚩 ${suspiciousDomains.length} fonte(s) de domínios questionáveis`,
       );
     }
 
@@ -271,7 +273,10 @@ export class FactCheckService {
   /**
    * Identifica pontos que suportam a confiabilidade
    */
-  identifySupportingPoints(text: string, sources: SearchResultEntity[]): string[] {
+  identifySupportingPoints(
+    text: string,
+    sources: SearchResultEntity[],
+  ): string[] {
     const points: string[] = [];
 
     // Conta fontes confiáveis
@@ -283,15 +288,15 @@ export class FactCheckService {
     const lower = text.toLowerCase();
 
     // Verifica menções de especialistas
-    if (
-      lower.match(/especialista|pesquisador|cientista|professor|doutor/i)
-    ) {
+    if (lower.match(/especialista|pesquisador|cientista|professor|doutor/i)) {
       points.push('✅ Cita especialistas ou autoridades no assunto');
     }
 
     // Verifica menções de estudos/pesquisas
     if (
-      lower.match(/estudo|pesquisa|análise|investigação|paper|artigo científico/i)
+      lower.match(
+        /estudo|pesquisa|análise|investigação|paper|artigo científico/i,
+      )
     ) {
       points.push('✅ Referencia estudos ou pesquisas');
     }

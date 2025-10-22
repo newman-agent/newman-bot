@@ -5,7 +5,10 @@ import { FactCheckEntity } from '../../core/domain/entities/fact-check.entity';
 
 @Injectable()
 export class EmbedBuilderService {
-  buildSearchEmbed(query: string, result: SearchWithFactCheckResult): EmbedBuilder {
+  buildSearchEmbed(
+    query: string,
+    result: SearchWithFactCheckResult,
+  ): EmbedBuilder {
     const embed = new EmbedBuilder()
       .setColor('#0099ff')
       .setTitle(`🔍 Resultados: ${query}`)

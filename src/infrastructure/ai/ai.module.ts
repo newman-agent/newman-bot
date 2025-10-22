@@ -13,7 +13,4 @@ import { AiRepository } from '../../core/domain/repositories/ai.repository';
   ],
   exports: [AiRepository],
 })
-
-export class AiModule { }
-
-
+export class AiModule {}

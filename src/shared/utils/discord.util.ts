@@ -45,7 +45,8 @@ export class DiscordUtils {
           currentChunk = '';
         }
         // Divide a linha em partes menores
-        const lineParts = line.match(new RegExp(`.{1,${maxLength}}`, 'g')) || [];
+        const lineParts =
+          line.match(new RegExp(`.{1,${maxLength}}`, 'g')) || [];
         chunks.push(...lineParts);
         continue;
       }
@@ -82,7 +83,10 @@ export class DiscordUtils {
       } else {
         // Mensagens subsequentes: tenta usar send() se disponível
         try {
-          if ('send' in message.channel && typeof message.channel.send === 'function') {
+          if (
+            'send' in message.channel &&
+            typeof message.channel.send === 'function'
+          ) {
             await message.channel.send(chunks[i]);
           } else {
             // Fallback: usa reply novamente
@@ -102,7 +106,10 @@ export class DiscordUtils {
    * @param text - Texto a enviar
    */
   static async sendMessage(message: Message, text: string): Promise<void> {
-    if ('send' in message.channel && typeof message.channel.send === 'function') {
+    if (
+      'send' in message.channel &&
+      typeof message.channel.send === 'function'
+    ) {
       await message.channel.send(text);
     } else {
       // Fallback para reply se send não estiver disponível
@@ -144,7 +151,7 @@ export class DiscordUtils {
    */
   static formatTimestamp(
     date: Date,
-    style: 't' | 'T' | 'd' | 'D' | 'f' | 'F' | 'R' = 'f'
+    style: 't' | 'T' | 'd' | 'D' | 'f' | 'F' | 'R' = 'f',
   ): string {
     const timestamp = Math.floor(date.getTime() / 1000);
     return `<t:${timestamp}:${style}>`;
