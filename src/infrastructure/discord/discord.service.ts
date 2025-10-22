@@ -53,6 +53,12 @@ export class DiscordService implements OnModuleInit {
 
   async onModuleInit() {
     const token = this.configService.get<string>('DISCORD_TOKEN');
+
+    // Debug temporário
+    this.logger.log(`Token encontrado: ${token ? 'SIM' : 'NÃO'}`);
+    this.logger.log(`Primeiros 10 caracteres: ${token?.substring(0, 10)}`);
+    this.logger.log(`Tamanho do token: ${token?.length}`);
+
     await this.client.login(token);
   }
 

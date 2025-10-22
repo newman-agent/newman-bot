@@ -10,6 +10,7 @@ import { SearchWithFactCheckUseCase } from '../../core/use-cases/search-with-fac
 import { VerifyClaimUseCase } from '../../core/use-cases/verify-claim.usecase';
 import { ChatWithAiUseCase } from '../../core/use-cases/chat-with-ai.usecase';
 import { EmbedBuilderService } from '../../application/services/embed-builder.service';
+import { FactCheckService } from 'src/application/services/fact-check.service';
 
 @Module({
   imports: [SearchModule, AiModule],
@@ -22,7 +23,8 @@ import { EmbedBuilderService } from '../../application/services/embed-builder.se
     SearchWithFactCheckUseCase,
     VerifyClaimUseCase,
     ChatWithAiUseCase,
+    FactCheckService,
     EmbedBuilderService,
   ],
 })
-export class DiscordModule {}
+export class DiscordModule { }
