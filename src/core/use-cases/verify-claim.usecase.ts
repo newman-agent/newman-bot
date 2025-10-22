@@ -1,63 +1,78 @@
-import { Injectable } from "@nestjs/common";
-import { AiRepository } from "../domain/repositories/ai.repository";
-import { SearchRepository } from "../domain/repositories/search.repository";
-import { SearchQuery } from "../domain/value-objects/search-query.vo";
-import { FactCheckEntity } from "../domain/entities/fact-check.entity";
-import { MessageEntity } from "../domain/entities/message.entity";
+import { Injectable } from '@nestjs/common';
+import { SearchRepository } from '../domain/repositories/search.repository';
+import { AiRepository } from '../domain/repositories/ai.repository';
+import { SearchQuery } from '../domain/value-objects/search-query.vo';
+import { MessageEntity } from '../domain/entities/message.entity';
+import { FactCheckEntity } from '../domain/entities/fact-check.entity';
+import { FactCheckService } from 'src/application/services/fact-check.service';
 
 @Injectable()
 export class VerifyClaimUseCase {
   constructor(
     private readonly searchRepository: SearchRepository,
     private readonly aiRepository: AiRepository,
+    private readonly factCheckService: FactCheckService,
   ) { }
 
   async execute(claim: string): Promise<FactCheckEntity> {
-
-    // 1. Search for information related to the claim
-    const query = SearchQuery.create(`fact check: ${claim}`);
+    // 1. Buscar informações sobre a afirmação
+    const query = SearchQuery.create(`fact check ${claim}`);
     const searchResults = await this.searchRepository.search(query);
 
-    // 2. Prepare context
+    // 2. Analisar qualidade das fontes
+    const sourceQuality = this.factCheckService.analyzeSourceQuality(searchResults);
+
+    // 3. Preparar contexto
     const context = searchResults
       .map((r, i) => `[${i + 1}] ${r.title}\n${r.snippet}\nFonte: ${r.url}`)
       .join('\n\n');
 
-    // 3. Ask AI to verify the claim
+    // 4. Pedir análise da IA com instruções específicas
     const messages = [
       new MessageEntity(
         'user',
-        `Verifique a seguinte afirmação: "${claim}". Indique se é verdadeira, falsa, parcialmente verdadeira ou sem informações suficientes. Explique o raciocício e cite as fontes. Forneça também um nível de confiança de 0-100`,
+        `Verifique esta afirmação: "${claim}". 
+
+Analise criticamente com base nas fontes fornecidas.
+
+INSTRUÇÕES:
+1. Determine o status: VERDADEIRO, FALSO, PARCIALMENTE VERDADEIRO ou DADOS INSUFICIENTES
+2. Explique seu raciocínio detalhadamente
+3. Cite as fontes usando [1], [2], etc.
+4. Indique o nível de confiança (0-100%)
+5. Identifique pontos que suportam ou contradizem a afirmação
+
+Qualidade das fontes encontradas: ${sourceQuality.score}/100
+${sourceQuality.details.join('\n')}`,
       ),
     ];
+
     const analysis = await this.aiRepository.chat(messages, context);
 
-    // 4. Return the fact-check result
+    // 5. Extrair informações estruturadas da análise
+    const status = this.factCheckService.extractFactCheckStatus(analysis);
+    const confidence = this.factCheckService.extractConfidenceLevel(analysis);
+    const redFlags = this.factCheckService.identifyRedFlags(claim + ' ' + analysis, searchResults);
+    const supportingPoints = this.factCheckService.identifySupportingPoints(analysis, searchResults);
+
+    // 6. Enriquecer análise com red flags e pontos de suporte
+    let enrichedAnalysis = analysis;
+
+    if (redFlags.length > 0) {
+      enrichedAnalysis += `\n\n⚠️ **Alertas:**\n${redFlags.map(f => `• ${f}`).join('\n')}`;
+    }
+
+    if (supportingPoints.length > 0) {
+      enrichedAnalysis += `\n\n✅ **Pontos Positivos:**\n${supportingPoints.map(p => `• ${p}`).join('\n')}`;
+    }
+
+    // 7. Retornar resultado estruturado
     return new FactCheckEntity(
       claim,
-      this.extractStatus(analysis),
-      analysis,
+      status,
+      enrichedAnalysis,
       searchResults,
-      this.extractConfidence(analysis)
+      confidence,
     );
   }
-
-  private extractStatus(analysis: string): any {
-    const lower = analysis.toLowerCase();
-
-    if (lower.includes('verdadeira') && !lower.includes('parcialmente')) {
-      return 'true';
-    }
-    if (lower.includes('falsa')) return 'false';
-    if (lower.includes('parcialmente')) return 'partially_true';
-    return 'insufficient_data';
-  }
-
-
-  private extractConfidence(analysis: string): number {
-    const match = analysis.match(/confiança[:\s]+(\d+)/i);
-    return match ? parseInt(match[1]) : 50;
-  }
-
 }
-
