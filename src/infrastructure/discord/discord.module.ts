@@ -27,4 +27,4 @@ import { FactCheckService } from 'src/application/services/fact-check.service';
     EmbedBuilderService,
   ],
 })
-export class DiscordModule { }
+export class DiscordModule {}

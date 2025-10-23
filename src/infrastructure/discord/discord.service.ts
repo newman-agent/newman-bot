@@ -6,6 +6,7 @@ import { ChatCommand } from './commands/chat.command';
 import { VerifyCommand } from './commands/verify.command';
 import { HelpCommand } from './commands/help.command';
 import { ICommand } from 'src/shared/interfaces/command.interface';
+import { MessageEntity } from 'src/core/domain/entities/message.entity';
 
 @Injectable()
 export class DiscordService implements OnModuleInit {
@@ -13,6 +14,8 @@ export class DiscordService implements OnModuleInit {
   private readonly client: Client;
   private readonly prefix: string;
   private readonly commands: Map<string, ICommand>;
+  private conversationHistory: Map<string, MessageEntity[]> = new Map();
+  private readonly MAX_HISTORY = 30;
 
   constructor(
     private readonly configService: ConfigService,
@@ -90,10 +93,50 @@ export class DiscordService implements OnModuleInit {
     if (!command) return;
 
     try {
-      await command.execute(message, args);
+      if (
+        commandName === 'chat' ||
+        commandName === 'c' ||
+        commandName === 'conversar'
+      ) {
+        await this.handleChatWithHistory(message, args);
+      } else {
+        await command.execute(message, args);
+      }
     } catch (error) {
       this.logger.error(`Erro no comando ${commandName}:`, error);
       await message.reply(' Ocorreu um erro ao executar o comando.');
     }
+  }
+
+  private async handleChatWithHistory(message: Message, args: string[]) {
+    const userId = message.author.id;
+    const userMessage = args.join(' ');
+
+    if (!this.conversationHistory.has(userId)) {
+      this.conversationHistory.set(userId, []);
+    }
+
+    const history = this.conversationHistory.get(userId)!;
+
+    history.push(new MessageEntity('user', userMessage));
+
+    if (history.length > this.MAX_HISTORY) {
+      history.shift();
+    }
+
+    const fakeMessage = {
+      ...message,
+      reply: async (content: any) => {
+        const reply = await message.reply(content);
+
+        if (typeof content === 'string') {
+          history.push(new MessageEntity('assistant', content));
+        }
+
+        return reply;
+      },
+    } as Message;
+
+    await this.chatCommand.execute(fakeMessage, args);
   }
 }

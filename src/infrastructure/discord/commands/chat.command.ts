@@ -29,8 +29,9 @@ export class ChatCommand implements ICommand {
     await DiscordUtils.sendTyping(message.channel);
 
     try {
-      const response = await this.chatUseCase.execute(userMessage);
+      const history = (message as any).conversationHistory || [];
 
+      const response = await this.chatUseCase.execute(userMessage, history);
       await DiscordUtils.replyLong(message, response);
     } catch (error) {
       this.logger.error('Chat command error:', error);

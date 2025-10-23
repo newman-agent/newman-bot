@@ -6,8 +6,19 @@ import { MessageEntity } from '../domain/entities/message.entity';
 export class ChatWithAiUseCase {
   constructor(private readonly aiRepository: AiRepository) {}
 
-  async execute(userMessage: string): Promise<string> {
-    const messages = [new MessageEntity('user', userMessage)];
+  async execute(
+    userMessage: string,
+    history: MessageEntity[] = [],
+  ): Promise<string> {
+    const messages = [...history];
+
+    if (
+      messages.length === 0 ||
+      messages[messages.length - 1].content !== userMessage
+    ) {
+      messages.push(new MessageEntity('user', userMessage));
+    }
+
     return this.aiRepository.chat(messages);
   }
 }
