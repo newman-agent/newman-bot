@@ -9,9 +9,11 @@ export class ChatWithAiUseCase {
   async execute(
     userMessage: string,
     history: MessageEntity[] = [],
+    additionalContext?: string,
   ): Promise<string> {
     const messages = [...history];
 
+    // Adiciona mensagem do usuário se ainda não estiver no histórico
     if (
       messages.length === 0 ||
       messages[messages.length - 1].content !== userMessage
@@ -19,6 +21,6 @@ export class ChatWithAiUseCase {
       messages.push(new MessageEntity('user', userMessage));
     }
 
-    return this.aiRepository.chat(messages);
+    return this.aiRepository.chat(messages, additionalContext);
   }
 }

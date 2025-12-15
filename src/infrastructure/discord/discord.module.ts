@@ -11,6 +11,7 @@ import { VerifyClaimUseCase } from '../../core/use-cases/verify-claim.usecase';
 import { ChatWithAiUseCase } from '../../core/use-cases/chat-with-ai.usecase';
 import { EmbedBuilderService } from '../../application/services/embed-builder.service';
 import { FactCheckService } from 'src/application/services/fact-check.service';
+import { ConversationMemoryService } from './services/conversation-memory.service';
 
 @Module({
   imports: [SearchModule, AiModule],
@@ -25,6 +26,7 @@ import { FactCheckService } from 'src/application/services/fact-check.service';
     ChatWithAiUseCase,
     FactCheckService,
     EmbedBuilderService,
+    ConversationMemoryService,
   ],
 })
-export class DiscordModule {}
+export class DiscordModule { }

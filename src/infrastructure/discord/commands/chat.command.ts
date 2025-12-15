@@ -4,6 +4,7 @@ import { ICommand } from '../../../shared/interfaces/command.interface';
 import { ChatWithAiUseCase } from '../../../core/use-cases/chat-with-ai.usecase';
 import { DiscordCommand } from '../decorators/discord-command.decorator';
 import { DiscordUtils } from '../../../shared/utils/discord.util';
+import { MessageEntity } from '../../../core/domain/entities/message.entity';
 
 @Injectable()
 @DiscordCommand({
@@ -16,7 +17,7 @@ import { DiscordUtils } from '../../../shared/utils/discord.util';
 export class ChatCommand implements ICommand {
   private readonly logger = new Logger(ChatCommand.name);
 
-  constructor(private readonly chatUseCase: ChatWithAiUseCase) {}
+  constructor(private readonly chatUseCase: ChatWithAiUseCase) { }
 
   async execute(message: Message, args: string[]): Promise<void> {
     if (args.length === 0) {
@@ -29,13 +30,29 @@ export class ChatCommand implements ICommand {
     await DiscordUtils.sendTyping(message.channel);
 
     try {
-      const history = (message as any).conversationHistory || [];
+      // Obtém memória do usuário (injetada pelo DiscordService)
+      const userMemory: MessageEntity[] = (message as any).userMemory || [];
 
-      const response = await this.chatUseCase.execute(userMessage, history);
+      // Obtém contexto do canal (injetada pelo DiscordService)
+      const channelContext: string = (message as any).channelContext || '';
+
+      // Prepara contexto adicional para a IA
+      let contextInfo = '';
+
+      if (channelContext) {
+        contextInfo = `\n\n${channelContext}\n\nLembre-se: você pode referenciar mensagens anteriores do canal usando @usuario quando relevante.`;
+      }
+
+      const response = await this.chatUseCase.execute(
+        userMessage,
+        userMemory,
+        contextInfo
+      );
+
       await DiscordUtils.replyLong(message, response);
     } catch (error) {
       this.logger.error('Chat command error:', error);
-      await message.reply(' Erro ao processar sua mensagem.');
+      await message.reply('❌ Erro ao processar sua mensagem.');
     }
   }
 }
