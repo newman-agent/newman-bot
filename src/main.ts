@@ -8,7 +8,7 @@ async function bootstrap() {
   });
 
   const logger = new Logger('Bootstrap');
-  logger.log('Éli-bot initialized successfully.');
+  logger.log('Newman-bot initialized successfully.');
 
   await app.close();
 }

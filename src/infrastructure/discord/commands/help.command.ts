@@ -14,7 +14,7 @@ export class HelpCommand implements ICommand {
   async execute(message: Message, args: string[]): Promise<void> {
     const embed = new EmbedBuilder()
       .setColor('#00ff00')
-      .setTitle('Comandos do Éli-bot')
+      .setTitle('Comandos do Newman-bot')
       .setDescription('Bot de busca inteligente e combate à desinformação')
       .addFields(
         {
