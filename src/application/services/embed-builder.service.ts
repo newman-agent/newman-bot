@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { EmbedBuilder } from 'discord.js';
 import { SearchWithFactCheckResult } from '../../core/use-cases/search-with-fact-check.usecase';
 import { FactCheckEntity } from '../../core/domain/entities/fact-check.entity';
+import { LinkFormatterUtil } from '../../shared/utils/link-formatter.util';
 
 @Injectable()
 export class EmbedBuilderService {
@@ -16,11 +17,13 @@ export class EmbedBuilderService {
       .setFooter({ text: 'Verifique sempre múltiplas fontes' })
       .setTimestamp();
 
-    // Adiciona até 3 fontes principais
     result.sources.slice(0, 3).forEach((source, i) => {
+      const cleanUrl = LinkFormatterUtil.formatDuckDuckGoLink(source.url);
+      const domain = LinkFormatterUtil.extractDomain(source.url);
+
       embed.addFields({
-        name: `[${i + 1}] ${this.truncate(source.title, 256)}`,
-        value: `[Link](${source.url})`,
+        name: `[${i + 1}] ${this.truncate(source.title, 200)}`,
+        value: `[${domain}](${cleanUrl})\n${this.truncate(source.snippet, 150)}`,
         inline: false,
       });
     });
@@ -57,11 +60,14 @@ export class EmbedBuilderService {
       })
       .setTimestamp();
 
-    // Adiciona fontes
     if (factCheck.sources.length > 0) {
       const sources = factCheck.sources
         .slice(0, 3)
-        .map((s, i) => `[${i + 1}] [${s.title}](${s.url})`)
+        .map((s, i) => {
+          const cleanUrl = LinkFormatterUtil.formatDuckDuckGoLink(s.url);
+          const domain = LinkFormatterUtil.extractDomain(s.url);
+          return `[${i + 1}] [${this.truncate(s.title, 80)}](${cleanUrl}) - _${domain}_`;
+        })
         .join('\n');
 
       embed.addFields({
@@ -85,10 +91,10 @@ export class EmbedBuilderService {
 
   private getStatusColor(status: string): number {
     const colors = {
-      true: 0x00ff00, // Verde
-      false: 0xff0000, // Vermelho
-      partially_true: 0xff9900, // Laranja
-      insufficient_data: 0x999999, // Cinza
+      true: 0x00ff00,
+      false: 0xff0000,
+      partially_true: 0xff9900,
+      insufficient_data: 0x999999,
     };
     return colors[status] || 0x999999;
   }

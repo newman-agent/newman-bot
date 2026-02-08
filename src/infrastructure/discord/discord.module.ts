@@ -12,6 +12,7 @@ import { ChatWithAiUseCase } from '../../core/use-cases/chat-with-ai.usecase';
 import { EmbedBuilderService } from '../../application/services/embed-builder.service';
 import { FactCheckService } from 'src/application/services/fact-check.service';
 import { ConversationMemoryService } from './services/conversation-memory.service';
+import { ChatWithWebSearchUseCase } from 'src/core/use-cases/chat-with-search.usecase';
 
 @Module({
   imports: [SearchModule, AiModule],
@@ -24,6 +25,7 @@ import { ConversationMemoryService } from './services/conversation-memory.servic
     SearchWithFactCheckUseCase,
     VerifyClaimUseCase,
     ChatWithAiUseCase,
+    ChatWithWebSearchUseCase,
     FactCheckService,
     EmbedBuilderService,
     ConversationMemoryService,

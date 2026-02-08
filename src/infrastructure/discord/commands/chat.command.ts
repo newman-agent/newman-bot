@@ -5,6 +5,7 @@ import { ChatWithAiUseCase } from '../../../core/use-cases/chat-with-ai.usecase'
 import { DiscordCommand } from '../decorators/discord-command.decorator';
 import { DiscordUtils } from '../../../shared/utils/discord.util';
 import { MessageEntity } from '../../../core/domain/entities/message.entity';
+import { ChatWithWebSearchUseCase } from 'src/core/use-cases/chat-with-search.usecase';
 
 @Injectable()
 @DiscordCommand({
@@ -17,7 +18,10 @@ import { MessageEntity } from '../../../core/domain/entities/message.entity';
 export class ChatCommand implements ICommand {
   private readonly logger = new Logger(ChatCommand.name);
 
-  constructor(private readonly chatUseCase: ChatWithAiUseCase) { }
+  constructor(
+    private readonly chatUseCase: ChatWithAiUseCase,
+    private readonly chatWithWebSearchUseCase: ChatWithWebSearchUseCase,
+  ) { }
 
   async execute(message: Message, args: string[]): Promise<void> {
     if (args.length === 0) {
@@ -27,29 +31,30 @@ export class ChatCommand implements ICommand {
 
     const userMessage = args.join(' ');
 
-    await DiscordUtils.sendTyping(message.channel);
-
     try {
-      // Obtém memória do usuário (injetada pelo DiscordService)
       const userMemory: MessageEntity[] = (message as any).userMemory || [];
-
-      // Obtém contexto do canal (injetada pelo DiscordService)
       const channelContext: string = (message as any).channelContext || '';
 
-      // Prepara contexto adicional para a IA
       let contextInfo = '';
-
       if (channelContext) {
         contextInfo = `\n\n${channelContext}\n\nLembre-se: você pode referenciar mensagens anteriores do canal usando @usuario quando relevante.`;
       }
 
-      const response = await this.chatUseCase.execute(
+      const result = await this.chatWithWebSearchUseCase.execute(
         userMessage,
         userMemory,
-        contextInfo
+        contextInfo,
       );
 
-      await DiscordUtils.replyLong(message, response);
+      if (result.searchPerformed) {
+        this.logger.log(
+          `✅ Response generated with web search for: "${result.searchQuery}"`,
+        );
+      } else {
+        this.logger.debug('✅ Response generated from knowledge base only');
+      }
+
+      await DiscordUtils.replyLong(message, result.response);
     } catch (error) {
       this.logger.error('Chat command error:', error);
       await message.reply('❌ Erro ao processar sua mensagem.');
