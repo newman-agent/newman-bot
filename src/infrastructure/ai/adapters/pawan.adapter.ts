@@ -156,7 +156,7 @@ export class PawanAdapter {
 
       const needsVision = images && images.length > 0;
       const model = needsVision
-        ? 'llama-3.2-90b-vision-preview'
+        ? 'meta-llama/llama-4-scout-17b-16e-instruct'
         : 'llama-3.1-8b-instant';
 
       const formattedMessages = this.formatMessages(messages, images);
