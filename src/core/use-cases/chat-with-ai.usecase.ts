@@ -4,12 +4,13 @@ import { MessageEntity } from '../domain/entities/message.entity';
 
 @Injectable()
 export class ChatWithAiUseCase {
-  constructor(private readonly aiRepository: AiRepository) {}
+  constructor(private readonly aiRepository: AiRepository) { }
 
   async execute(
     userMessage: string,
     history: MessageEntity[] = [],
     additionalContext?: string,
+    images?: string[],
   ): Promise<string> {
     const messages = [...history];
 
@@ -21,6 +22,6 @@ export class ChatWithAiUseCase {
       messages.push(new MessageEntity('user', userMessage));
     }
 
-    return this.aiRepository.chat(messages, additionalContext);
+    return this.aiRepository.chat(messages, additionalContext, images);
   }
 }

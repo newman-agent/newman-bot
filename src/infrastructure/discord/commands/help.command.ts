@@ -14,16 +14,23 @@ export class HelpCommand implements ICommand {
   async execute(message: Message, args: string[]): Promise<void> {
     const embed = new EmbedBuilder()
       .setColor('#00ff00')
-      .setTitle('Comandos do Newman-bot')
-      .setDescription('Bot de busca inteligente e combate à desinformação')
+      .setTitle('📚 Comandos do Newman-bot')
+      .setDescription(
+        'Bot de busca inteligente, combate à desinformação e análise de imagens',
+      )
       .addFields(
+        {
+          name: `${this.prefix}chat <mensagem>`,
+          value:
+            'Conversa com a IA (suporta imagens anexadas automaticamente)',
+        },
+        {
+          name: `${this.prefix}analyze [pergunta]`,
+          value: 'Analisa imagens e responde perguntas sobre elas',
+        },
         {
           name: `${this.prefix}search <query>`,
           value: 'Busca e analisa informações na web com fact-checking',
-        },
-        {
-          name: `${this.prefix}chat <mensagem>`,
-          value: 'Conversa normal com a IA',
         },
         {
           name: `${this.prefix}verify <afirmação>`,
@@ -34,6 +41,11 @@ export class HelpCommand implements ICommand {
           value: 'Mostra esta mensagem',
         },
       )
+      .addFields({
+        name: '🆕 Novidade: Análise de Imagens',
+        value:
+          'Agora você pode enviar imagens junto com `!chat` ou usar `!analyze` para análise detalhada de memes, screenshots, gráficos e mais!',
+      })
       .setFooter({ text: 'Sempre verifique múltiplas fontes!' })
       .setTimestamp();
 

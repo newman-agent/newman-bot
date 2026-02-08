@@ -4,6 +4,7 @@ import { SearchCommand } from './commands/search.command';
 import { ChatCommand } from './commands/chat.command';
 import { VerifyCommand } from './commands/verify.command';
 import { HelpCommand } from './commands/help.command';
+import { AnalyzeCommand } from './commands/analyze.command';
 import { SearchModule } from '../search/search.module';
 import { AiModule } from '../ai/ai.module';
 import { SearchWithFactCheckUseCase } from '../../core/use-cases/search-with-fact-check.usecase';
@@ -22,6 +23,7 @@ import { ChatWithWebSearchUseCase } from 'src/core/use-cases/chat-with-search.us
     ChatCommand,
     VerifyCommand,
     HelpCommand,
+    AnalyzeCommand,
     SearchWithFactCheckUseCase,
     VerifyClaimUseCase,
     ChatWithAiUseCase,
@@ -31,4 +33,4 @@ import { ChatWithWebSearchUseCase } from 'src/core/use-cases/chat-with-search.us
     ConversationMemoryService,
   ],
 })
-export class DiscordModule { }
+export class DiscordModule {}

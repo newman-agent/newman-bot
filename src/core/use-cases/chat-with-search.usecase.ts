@@ -83,7 +83,7 @@ export class ChatWithWebSearchUseCase {
   ): Promise<{ needsSearch: boolean; searchQuery: string; thought: string }> {
     const contextHistory = history
       .slice(-4)
-      .map((m) => `${m.reole}: ${m.content}`)
+      .map((m) => `${m.role}: ${m.content}`)
       .join('\n');
 
     const decisionPrompt = `Você é um sistema de raciocínio que decide se precisa de informações atualizadas da web.
