@@ -156,8 +156,8 @@ export class PawanAdapter {
 
       const needsVision = images && images.length > 0;
       const model = needsVision
-        ? 'llama-3.2-11b-vision-preview' // Modelo multimodal
-        : 'llama-3.1-8b-instant'; // Modelo apenas texto
+        ? 'llama-3.2-90b-vision-preview'
+        : 'llama-3.1-8b-instant';
 
       const formattedMessages = this.formatMessages(messages, images);
 
