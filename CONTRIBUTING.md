@@ -1066,7 +1066,7 @@ pnpm run test search.service.spec.ts
 - Check existing issues
 - Read documentation
 - Ask in issue comments
-- Contact maintainer: [@lucashenry](https://github.com/lucashenry)
+- Contact maintainer: [@lucashenry](https://github.com/Lucas-Henry)
 
 **Found a Bug?**
 - Check if already reported
@@ -1086,4 +1086,4 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file for
 
 **Thank you for contributing to Newman Bot!**
 
-Made with dedication by [Lucas Henry](https://github.com/lucashenry)
+Made with dedication by [Lucas Henry](https://github.com/Lucas-Henry)
