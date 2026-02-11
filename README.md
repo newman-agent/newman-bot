@@ -19,7 +19,7 @@
 
 Newman Bot is a Discord bot focused on combating disinformation through artificial intelligence and real-time web search. Built with Clean Architecture and SOLID principles, it provides intelligent fact-checking, natural conversation, and image analysis capabilities.
 
-**Created by [Lucas Henry](https://github.com/lucashenry)**
+**Created by [Lucas Henry](https://github.com/Lucas-Henry)**
 
 ---
 
@@ -100,7 +100,7 @@ MIT License - Copyright (c) 2026 Lucas Henry
 ## Contact
 
 **Lucas Henry**  
-GitHub: [@lucashenry](https://github.com/lucashenry) | Discord: @lucashenry | [Buy Me a Coffee](https://buymeacoffee.com/henrylucasx)
+GitHub: [@lucashenry](https://github.com/Lucas-Henry) | Discord: @lucashenry | [Buy Me a Coffee](https://buymeacoffee.com/henrylucasx)
 
 **Project Links**  
 [Repository](https://github.com/newman-agent/newman-bot) | [Issues](https://github.com/newman-agent/newman-bot/issues)
@@ -109,6 +109,6 @@ GitHub: [@lucashenry](https://github.com/lucashenry) | Discord: @lucashenry | [B
 
 <div align="center">
 
-Made with dedication by [Lucas Henry](https://github.com/lucashenry)
+Made with dedication by [Lucas Henry](https://github.com/Lucas-Henry)
 
 </div>
