@@ -93,7 +93,7 @@ Your contribution helps maintain the project and cover API costs.
 
 ## License
 
-MIT License - Copyright (c) 2024 Lucas Henry
+MIT License - Copyright (c) 2026 Lucas Henry
 
 ---
 
