@@ -425,7 +425,7 @@ pnpm run test:e2e
 
 We follow a modified Git Flow:
 
-![Git Flow Diagram](./docs/gitflow.png)
+<img width="1010" height="405" alt="image" src="https://github.com/user-attachments/assets/2dacc123-b493-4155-8c90-aa8e0b4d94c0" />
 
 **Branch Types:**
 
