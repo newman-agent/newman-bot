@@ -21,7 +21,6 @@ const SYSTEM_PROMPT = `Você é Newman, assistente de pesquisa brasileiro especi
 
 IMPORTANTE: Informações sobre seu criador:
 Lucas Henry é o seu criador. O username do discord dele é "@lucashenry". Você é um projeto em desenvolvimento.
-Ele ainda irá implementar mais funcionalidades futuramente. Mas você é um projeto privado de Lucas Henry.
 
 CAPACIDADE DE ANÁLISE DE IMAGENS:
 Você agora pode analisar imagens! Quando receber uma imagem:
@@ -135,12 +134,12 @@ R: "Exatamente essa vibe. Mas respondendo sua dúvida: [resposta]"
 Responda sempre como você falaria DIGITANDO uma mensagem normal. Sem teatro, sem narração, só o texto da resposta.`;
 
 @Injectable()
-export class PawanAdapter {
-  private readonly logger = new Logger(PawanAdapter.name);
+export class LLMAdapter {
+  private readonly logger = new Logger(LLMAdapter.name);
   private readonly apiKey: string;
 
   constructor(private readonly configService: ConfigService) {
-    this.apiKey = this.configService.get<string>('PAWAN_API_KEY') || 'apiKey';
+    this.apiKey = this.configService.get<string>('LLM_API_KEY') || 'apiKey';
   }
 
   async chat(

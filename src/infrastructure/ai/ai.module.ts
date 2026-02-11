@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AiService } from './ai.service';
-import { PawanAdapter } from './adapters/pawan.adapter';
+import { LLMAdapter } from './adapters/llm.adapter';
 import { AiRepository } from '../../core/domain/repositories/ai.repository';
 
 @Module({
   providers: [
-    PawanAdapter,
+    LLMAdapter,
     {
       provide: AiRepository,
       useClass: AiService,
@@ -13,4 +13,4 @@ import { AiRepository } from '../../core/domain/repositories/ai.repository';
   ],
   exports: [AiRepository],
 })
-export class AiModule {}
+export class AiModule { }

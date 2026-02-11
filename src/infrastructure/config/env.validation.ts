@@ -16,7 +16,7 @@ class EnvironmentVariables {
   DISCORD_TOKEN: string;
 
   @IsString()
-  PAWAN_API_KEY: string;
+  LLM_API_KEY: string;
 
   @IsString()
   @IsOptional()
