@@ -1,98 +1,114 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+<div align="center">
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# Newman Bot
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+### Advanced Discord Bot for Fact-Checking, AI Chat & Image Analysis
 
-## Description
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue.svg)](https://www.typescriptlang.org/)
+[![NestJS](https://img.shields.io/badge/NestJS-11.0-red.svg)](https://nestjs.com/)
+[![Discord.js](https://img.shields.io/badge/Discord.js-14.14-blue.svg)](https://discord.js.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-18%2B-green.svg)](https://nodejs.org/)
+[![pnpm](https://img.shields.io/badge/pnpm-9.15-orange.svg)](https://pnpm.io/)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+</div>
 
-## Project setup
+---
 
-```bash
-$ pnpm install
-```
+## About
 
-## Compile and run the project
+Newman Bot is a Discord bot focused on combating disinformation through artificial intelligence and real-time web search. Built with Clean Architecture and SOLID principles, it provides intelligent fact-checking, natural conversation, and image analysis capabilities.
 
-```bash
-# development
-$ pnpm run start
+**Created by [Lucas Henry](https://github.com/lucashenry)**
 
-# watch mode
-$ pnpm run start:dev
+---
 
-# production mode
-$ pnpm run start:prod
-```
+## Key Features
 
-## Run tests
+- **AI-Powered Chat** - Natural conversation with context memory and multi-turn dialogue support
+- **Fact-Checking** - Verifies claims using multiple sources with credibility analysis and confidence scoring
+- **Image Analysis** - Detailed visual content description, OCR, and meme analysis via Llama 4 Scout
+- **Web Search** - Real-time information retrieval with Brave Search and DuckDuckGo integration
+- **Multi-language** - Full support for Portuguese, English, and Spanish
 
-```bash
-# unit tests
-$ pnpm run test
+---
 
-# e2e tests
-$ pnpm run test:e2e
+## Commands
 
-# test coverage
-$ pnpm run test:cov
-```
+Default prefix: `!` (configurable)
 
-## Deployment
+| Command | Description | Aliases |
+|---------|-------------|---------|
+| `!chat <message>` | Natural AI conversation with image support | `!c`, `!conversar` |
+| `!analyze [question]` | Analyze images in detail | `!analisar`, `!img`, `!image` |
+| `!search <query>` | Search the web with AI synthesis | `!buscar`, `!s` |
+| `!verify <claim>` | Fact-check claims with sources | `!verificar`, `!check`, `!v` |
+| `!help` | Show all commands | `!ajuda`, `!h`, `!?` |
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+---
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## Tech Stack
+
+**Core:** NestJS, TypeScript, Discord.js v14, pnpm  
+**AI:** Groq API (Llama 3.1 8B), Llama 4 Scout (vision)  
+**Search:** Brave Search API, DuckDuckGo  
+
+**Architecture:** Clean Architecture with Domain-Driven Design, SOLID principles, and Dependency Injection
+
+---
+
+## Quick Start
 
 ```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
+# Clone repository
+git clone https://github.com/newman-agent/newman-bot.git
+cd newman-bot
+
+# Install dependencies
+pnpm install
+
+# Configure environment
+cp .env.example .env
+# Add your DISCORD_TOKEN and LLM_API_KEY
+
+# Run
+pnpm run start:dev
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+**Requirements:** Node.js 18+, Discord Bot Token, Groq API Key
 
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+---
 
 ## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+<div align="center">
 
-## Stay in touch
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Support-orange?style=for-the-badge&logo=buy-me-a-coffee)](https://buymeacoffee.com/henrylucasx)
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Your contribution helps maintain the project and cover API costs.
+
+</div>
+
+---
 
 ## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+MIT License - Copyright (c) 2026 Lucas Henry
+
+---
+
+## Contact
+
+**Lucas Henry**  
+GitHub: [@lucashenry](https://github.com/lucashenry) | Discord: @lucashenry | [Buy Me a Coffee](https://buymeacoffee.com/henrylucasx)
+
+**Project Links**  
+[Repository](https://github.com/newman-agent/newman-bot) | [Issues](https://github.com/newman-agent/newman-bot/issues)
+
+---
+
+<div align="center">
+
+Made with dedication by [Lucas Henry](https://github.com/lucashenry)
+
+</div>
