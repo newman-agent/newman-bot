@@ -335,7 +335,7 @@ npm install -g pnpm
 **1. Fork and Clone**
 ```bash
 # Fork the repository on GitHub first, then:
-git clone https://github.com/newman-agent/newman-bot.git
+git clone https://github.com/YOUR-USERNAME/newman-bot.git
 cd newman-bot
 ```
 
