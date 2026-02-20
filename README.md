@@ -4,7 +4,7 @@
 
 ### Advanced Discord Bot for Fact-Checking, AI Chat & Image Analysis
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: Non-Commercial](https://img.shields.io/badge/License-Non--Commercial-red.svg)](LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue.svg)](https://www.typescriptlang.org/)
 [![NestJS](https://img.shields.io/badge/NestJS-11.0-red.svg)](https://nestjs.com/)
 [![Discord.js](https://img.shields.io/badge/Discord.js-14.14-blue.svg)](https://discord.js.org/)
